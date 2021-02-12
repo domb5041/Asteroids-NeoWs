@@ -58,15 +58,14 @@ export default ({ height, selectX, selectY, width }) => {
     // Create a line path of for our data.
     const linePath = sparkLine(data);
 
-    return (
-        <svg
-            className='container'
-            // height={height}
-            // width={width}
+    // map our data to scaled points.
+    const circlePoints = data.map(datum => ({
+        x: selectScaledX(datum),
+        y: selectScaledY(datum),
+    }));
 
-            height={height}
-            width={width}
-        >
+    return (
+        <svg className='container' height={height} width={width}>
             <g
                 style={{
                     transform: `translate(${graphMargin}px, ${graphMargin}px)`,
@@ -80,6 +79,16 @@ export default ({ height, selectX, selectY, width }) => {
                 {/* ADD: our spark line as a path (inside a group, for convenient styling) */}
                 <g className='line'>
                     <path d={linePath} />
+                </g>
+                <g className='scatter'>
+                    {circlePoints.map(circlePoint => (
+                        <circle
+                            cx={circlePoint.x}
+                            cy={circlePoint.y}
+                            key={`${circlePoint.x},${circlePoint.y}`}
+                            r={4}
+                        />
+                    ))}
                 </g>
             </g>
         </svg>
