@@ -7,6 +7,7 @@ import {
 import { line as d3Line } from 'd3-shape';
 import { axisBottom as d3AxisBottom, axisLeft as d3AxisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
+import styled from 'styled-components';
 
 const data = [
     { day: '2017-04-18', productPerceivedQuality: '2.8' },
@@ -24,6 +25,18 @@ const data = [
     { day: '2017-04-30', productPerceivedQuality: '5.6' },
     { day: '2017-05-01', productPerceivedQuality: '6.2' },
 ];
+
+const StyledPath = styled.path`
+    fill: transparent;
+    stroke: #29b6f6;
+    stroke-width: 2;
+`;
+
+const StyledCircle = styled.circle`
+    fill: #5c6bc0;
+    stroke: #fafafa;
+    stroke-width: 2;
+`;
 
 export default ({ height, selectX, selectY, width }) => {
     const graphMargin = 40;
@@ -78,11 +91,11 @@ export default ({ height, selectX, selectY, width }) => {
 
                 {/* ADD: our spark line as a path (inside a group, for convenient styling) */}
                 <g className='line'>
-                    <path d={linePath} />
+                    <StyledPath d={linePath} />
                 </g>
                 <g className='scatter'>
                     {circlePoints.map(circlePoint => (
-                        <circle
+                        <StyledCircle
                             cx={circlePoint.x}
                             cy={circlePoint.y}
                             key={`${circlePoint.x},${circlePoint.y}`}
