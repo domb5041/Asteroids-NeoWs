@@ -86,7 +86,13 @@ export default ({ height, selectX, selectY, width }) => {
                 height={height - graphMargin}
                 width={width - graphMargin}
             >
-                <g className='xAxis' ref={node => d3Select(node).call(xAxis)} />
+                <g
+                    className='xAxis'
+                    ref={node => d3Select(node).call(xAxis)}
+                    style={{
+                        transform: `translateY(${height - graphMargin * 2}px)`,
+                    }}
+                />
                 <g className='yAxis' ref={node => d3Select(node).call(yAxis)} />
 
                 {/* ADD: our spark line as a path (inside a group, for convenient styling) */}
